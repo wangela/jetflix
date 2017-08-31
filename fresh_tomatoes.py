@@ -11,14 +11,35 @@ main_page_head = '''
     <meta charset="utf-8">
     <title>JETFLIX</title>
 
-    <!-- Bootstrap 3 -->
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    
+    <!-- Bootstrap 3 legacy code
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    -->
+
     <style type="text/css" media="screen">
         body {
-            padding-top: 80px;
+            background-color:#000;
+        }
+        h2 {
+            color: red;
+            font-weight: 800;
+        }
+        h3 {
+            color: #DDD;
+            font-size: 150%;
+            font-weight: 200;
+        }
+        .jumbotron {
+            background-color: #333;
+            height: 480px;
+            padding: 0px;
+            margin: 0px;
         }
         #trailer .modal-dialog {
             margin-top: 200px;
@@ -35,12 +56,27 @@ main_page_head = '''
             width: 100%;
             height: 100%;
         }
+        .container-fluid {
+            overflow:scroll;
+            padding-top: 0px;
+        }
+        .catalog-row {
+            align-content: left;
+            display: flex;
+            flex-direction: row;
+            flex-basis: auto;
+            flex-wrap: nowrap;
+            margin-left: 30px;
+        }
         .movie-tile {
             margin-bottom: 20px;
             padding-top: 20px;
+            padding-left: 20px;
+            padding-right: 30px;
+            width: 300px;
         }
         .movie-tile:hover {
-            background-color: #EEE;
+            background-color: #222;
             cursor: pointer;
         }
         .scale-media {
@@ -103,18 +139,35 @@ main_page_content = '''
     </div>
 
     <!-- Main Page Content -->
+    <!-- Hide navbar
     <div class="container">
+      <div class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" role="navigation">
       <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
           <div class="navbar-header">
-            <a class="navbar-brand" href="#">JETFLIX</a>
+            <a class="navbar-brand" href="#"><h2>JETFLIX</h2></a>
           </div>
         </div>
       </div>
     </div>
-    <div class="container">
+    -->
+    <div class="jumbotron">
+      <div class="container">
+        <h2>JETFLIX</h2>
+      </div>
+    </div>
+    <div class="container-fluid">
+    <div class="catalog-row">
       {movie_tiles}
     </div>
+    </div>
+
+    <!-- Optional JavaScript for Bootstrap 4 -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+
   </body>
 </html>
 '''
@@ -122,9 +175,9 @@ main_page_content = '''
 
 # A single movie entry html template
 movie_tile_content = '''
-<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="{trailer_youtube_id}" data-toggle="modal" data-target="#trailer">
+<div class="movie-tile text-center" data-trailer-youtube-id="{trailer_youtube_id}" data-toggle="modal" data-target="#trailer"> <!-- col-md-4 col-lg-3 -->
     <img src="{poster_image_url}" width="220" height="342">
-    <h2>{movie_title}</h2>
+    <h3>{movie_title}</h3>
 </div>
 '''
 
