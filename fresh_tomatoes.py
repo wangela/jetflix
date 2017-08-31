@@ -95,16 +95,16 @@ main_page_head = '''
     </style>
     <script type="text/javascript" charset="utf-8">
         // Pause the video when the modal is closed
-        $(document).on('click', '.hanging-close, .modal-backdrop, .modal', function (event) {
-            // Remove the src so the player itself gets removed, as this is the only
-            // reliable way to ensure the video stops playing in IE
-            $("#trailer-video-container").empty();
-        });
+        // $(document).on('click', '.hanging-close, .modal-backdrop, .modal', function (event) {
+        //     // Remove the src so the player itself gets removed, as this is the only
+        //     // reliable way to ensure the video stops playing in IE
+        //     $("#trailerbox").empty();
+        // });
         // Start playing the video whenever the trailer modal is opened
         $(document).on('click', '.movie-tile', function (event) {
             var trailerYouTubeId = $(this).attr('data-trailer-youtube-id')
             var sourceUrl = 'http://www.youtube.com/embed/' + trailerYouTubeId + '?autoplay=1&html5=1';
-            $("#trailer-video-container").empty().append($("<iframe></iframe>", {
+            $("#trailerbox").empty().append($("<iframe></iframe>", {
               'id': 'trailer-video',
               'type': 'text-html',
               'src': sourceUrl,
@@ -154,6 +154,9 @@ main_page_content = '''
     <div class="jumbotron">
       <div class="container">
         <h2>JETFLIX</h2>
+        <iframe id="samplevid" src="https://www.youtube.com/embed/M7lc1UVf-VE?autoplay=0&origin=http://example.com" width="640" height="360" allowfullscreen></iframe>
+        <div class="container" id="trailerbox">
+        </div>
       </div>
     </div>
     <div class="container-fluid">
@@ -175,7 +178,7 @@ main_page_content = '''
 
 # A single movie entry html template
 movie_tile_content = '''
-<div class="movie-tile text-center" data-trailer-youtube-id="{trailer_youtube_id}" data-toggle="modal" data-target="#trailer"> <!-- col-md-4 col-lg-3 -->
+<div class="movie-tile text-center" data-trailer-youtube-id="{trailer_youtube_id}"> <!-- col-md-4 col-lg-3 -->
     <img src="{poster_image_url}" width="220" height="342">
     <h3>{movie_title}</h3>
 </div>
