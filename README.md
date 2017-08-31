@@ -14,10 +14,13 @@ The following **required** functionality is complete:
 * [x] User can click on a movie poster to view the trailer video
 
 The following **additional** features are implemented:
+* [x] Movies are displayed in order sorted by title
 * [ ] Trailer video plays in a dedicated space on the screen
 * [ ] Look & feel of the site mimics modern media browsing patterns
 * [ ] Additional details about the movie are displayed
-* [ ] TV Shows can also be browsed in the catalog
+* [ ] TV shows can also be browsed in the catalog
+* [ ] TV show details are different than movie details (still image instead of trailer, number of seasons instead of duration)
+* [ ] User can choose between viewing a list of all videos, only movies, or only TV shows
 
 
 ## Video Walkthrough 
