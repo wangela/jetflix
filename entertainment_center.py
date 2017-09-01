@@ -1,10 +1,10 @@
 import fresh_tomatoes
 import media
 
-toy_story = media.Movie("Toy Story", "A movie about a boy and his toys that come to life", "https://upload.wikimedia.org/wikipedia/en/1/13/Toy_Story.jpg", 81, "https://youtu.be/KYz2wyBy3kc")
-moana = media.Movie("Moana", "Moana teams up with demigod Maui to retore prosperity to her people.", "https://vignette1.wikia.nocookie.net/disney/images/2/2e/Moana_poster_3.jpg", 107, "https://youtu.be/LKFuXETZUsI")
+toy_story = media.Movie("Toy Story", "A cowboy doll is profoundly threatened and jealous when a new spaceman figure supplants him as top toy in a boy's room.", "https://upload.wikimedia.org/wikipedia/en/1/13/Toy_Story.jpg", 81, "https://youtu.be/KYz2wyBy3kc")
+moana = media.Movie("Moana", "When a terrible curse reaches Moana's island, she seeks out demigod Maui to set things right.", "https://vignette1.wikia.nocookie.net/disney/images/2/2e/Moana_poster_3.jpg", 107, "https://youtu.be/LKFuXETZUsI")
 divergent = media.Movie("Divergent", "In a world divided by factions based on virtues, Tris learns she's Divergent and won't fit in.", "https://upload.wikimedia.org/wikipedia/en/d/d4/Divergent.jpg", 139, "https://youtu.be/sutgWjz10sM")
-wonder_woman = media.Movie("Wonder Woman", "Before she was Wonder Woman, she was Diana, princess of the Amazons, trained warrior.", "https://upload.wikimedia.org/wikipedia/en/e/ed/Wonder_Woman_%282017_film%29.jpg", 141, "https://youtu.be/VSB4wGIdDwo")
+wonder_woman = media.Movie("Wonder Woman", "Before she was Wonder Woman, she was Diana, princess of the Amazons, trained warrior.", "https://upload.wikimedia.org/wikipedia/en/e/ed/Wonder_Woman_%282017_film%29.jpg", 141, "https://youtu.be/336qJITnDi0")
 ghostbusters = media.Movie("Ghostbusters (2016)", "Following a ghost invasion of Manhattan, four women band together to stop the otherworldly threat.", "https://upload.wikimedia.org/wikipedia/en/3/32/Ghostbusters_2016_film_poster.png", 116, "https://youtu.be/w3ugHP-yZXw")
 matrix = media.Movie("The Matrix", "A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.", "https://upload.wikimedia.org/wikipedia/en/c/c1/The_Matrix_Poster.jpg", 136, "https://youtu.be/tGgCqGm_6Hs")
 

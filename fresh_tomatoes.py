@@ -13,14 +13,12 @@ main_page_head = '''
 
     <!-- Bootstrap 4 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-    
-    <!-- Bootstrap 3 legacy code
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
-    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-    -->
+
+    <!-- Optional JavaScript for Bootstrap 4 -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 
     <style type="text/css" media="screen">
         body {
@@ -34,27 +32,56 @@ main_page_head = '''
             color: #DDD;
             font-size: 150%;
             font-weight: 200;
+            text-align: center;
+        }
+        p.vid-title {
+            color: #FFF;
+            font-size: 200%;
+            font-weight: 200;
+            text-align: left;
+        }
+        p.vid-storyline {
+            color: #FFF;
+            font-size: 100%;
+            font-weight: 300;
+            text-align: left;
         }
         .jumbotron {
-            background-color: #333;
+            background-color: #000;
             height: 480px;
             padding: 0px;
             margin: 0px;
         }
-        #trailer .modal-dialog {
-            margin-top: 200px;
-            width: 640px;
-            height: 480px;
-        }
-        .hanging-close {
-            position: absolute;
-            top: -12px;
-            right: -12px;
-            z-index: 9001;
-        }
         #trailer-video {
             width: 100%;
             height: 100%;
+        }
+        #trailerbox {
+            border: none;
+            height: 360px;
+            margin: 0 auto;
+            width: 640px;
+            background-color: #000;
+            z-index: 2;
+        }
+        #jumbocontainer {
+            position: relative;
+        }
+        #jumbocontainer #infobox {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            border: none;
+            margin-left: 0px;
+            text-align: left;
+            opacity: 0.7;
+            width: 400px;
+            background-color: #000;
+            z-index: 3;
+        }
+        #detailsbox {
+            text-align: left;
+            z-index: 4;
         }
         .container-fluid {
             overflow:scroll;
@@ -73,49 +100,38 @@ main_page_head = '''
             padding-top: 20px;
             padding-left: 20px;
             padding-right: 30px;
-            width: 300px;
         }
         .movie-tile:hover {
             background-color: #222;
             cursor: pointer;
         }
-        .scale-media {
-            padding-bottom: 56.25%;
-            position: relative;
-        }
-        .scale-media iframe {
-            border: none;
-            height: 100%;
-            position: absolute;
-            width: 100%;
-            left: 0;
-            top: 0;
-            background-color: white;
-        }
     </style>
     <script type="text/javascript" charset="utf-8">
-        // Pause the video when the modal is closed
-        // $(document).on('click', '.hanging-close, .modal-backdrop, .modal', function (event) {
-        //     // Remove the src so the player itself gets removed, as this is the only
-        //     // reliable way to ensure the video stops playing in IE
-        //     $("#trailerbox").empty();
-        // });
-        // Start playing the video whenever the trailer modal is opened
-        $(document).on('click', '.movie-tile', function (event) {
-            var trailerYouTubeId = $(this).attr('data-trailer-youtube-id')
-            var sourceUrl = 'http://www.youtube.com/embed/' + trailerYouTubeId + '?autoplay=1&html5=1';
-            $("#trailerbox").empty().append($("<iframe></iframe>", {
-              'id': 'trailer-video',
-              'type': 'text-html',
-              'src': sourceUrl,
-              'frameborder': 0
-            }));
-        });
-        // Animate in the movies when the page loads
-        $(document).ready(function () {
-          $('.movie-tile').hide().first().show("fast", function showNext() {
-            $(this).next("div").show("fast", showNext);
-          });
+        // Start playing the trailer whenever movie tile is clicked
+        $(document).ready(function() {
+            $(".movie-tile").click(function() {
+                console.log('clicked');
+                var title = $(this).attr('title');
+                var titlecode = '<div class="container" id="detailsbox"><p class="vid-title">' + title + '</p>'
+                var storyline = $(this).attr('storyline');
+                var storycode = '<p class="vid-storyline">' + storyline + '</p></div>'
+                var trailerYouTubeId = $(this).attr('data-trailer-youtube-id');
+                var sourceUrl = 'http://www.youtube.com/embed/' + trailerYouTubeId + '?autoplay=1&html5=1';
+                console.log(storyline);
+                $("#infobox").empty().append($(titlecode + storycode));
+                $("#trailerbox").empty().append($("<iframe></iframe>", {
+                    'id': 'trailer-video',
+                    'type': 'text-html',
+                    'src': sourceUrl,
+                    'frameborder': 0
+                }));
+            });
+            // Animate in the movies when the page loads
+            $(document).ready(function () {
+              $('.movie-tile').hide().first().show("fast", function showNext() {
+                $(this).next("div").show("fast", showNext);
+              });
+            });
         });
     </script>
 </head>
@@ -125,19 +141,6 @@ main_page_head = '''
 # The main page layout and title bar
 main_page_content = '''
   <body>
-    <!-- Trailer Video Modal -->
-    <div class="modal" id="trailer">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <a href="#" class="hanging-close" data-dismiss="modal" aria-hidden="true">
-            <img src="https://lh5.ggpht.com/v4-628SilF0HtHuHdu5EzxD7WRqOrrTIDi_MhEG6_qkNtUK5Wg7KPkofp_VJoF7RS2LhxwEFCO1ICHZlc-o_=s0#w=24&h=24"/>
-          </a>
-          <div class="scale-media" id="trailer-video-container">
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- Main Page Content -->
     <!-- Hide navbar
     <div class="container">
@@ -152,10 +155,11 @@ main_page_content = '''
     </div>
     -->
     <div class="jumbotron">
-      <div class="container">
+      <div class="container" id="jumbocontainer">
         <h2>JETFLIX</h2>
-        <iframe id="samplevid" src="https://www.youtube.com/embed/M7lc1UVf-VE?autoplay=0&origin=http://example.com" width="640" height="360" allowfullscreen></iframe>
-        <div class="container" id="trailerbox">
+        <div id="trailerbox">
+        </div>
+        <div id="infobox">
         </div>
       </div>
     </div>
@@ -165,11 +169,6 @@ main_page_content = '''
     </div>
     </div>
 
-    <!-- Optional JavaScript for Bootstrap 4 -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 
   </body>
 </html>
@@ -178,7 +177,7 @@ main_page_content = '''
 
 # A single movie entry html template
 movie_tile_content = '''
-<div class="movie-tile text-center" data-trailer-youtube-id="{trailer_youtube_id}"> <!-- col-md-4 col-lg-3 -->
+<div class="movie-tile" data-trailer-youtube-id="{trailer_youtube_id}" title="{movie_title}" storyline="{movie_storyline}">
     <img src="{poster_image_url}" width="220" height="342">
     <h3>{movie_title}</h3>
 </div>
@@ -200,6 +199,7 @@ def create_movie_tiles_content(movies):
         # Append the tile for the movie with its content filled in
         content += movie_tile_content.format(
             movie_title=movie.title,
+            movie_storyline=movie.storyline,
             poster_image_url=movie.poster_image_url,
             trailer_youtube_id=trailer_youtube_id
         )
