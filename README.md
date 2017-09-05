@@ -27,9 +27,12 @@ The following **additional** features are implemented:
 
 Here are walkthroughs of implemented user stories:
 
-| v1 walkthrough (as instructed by course) | v2 walkthrough (emulating streaming media site experience) | v3 walkthrough (add Series shows) }
+| v1 walkthrough (as instructed by course) | v2 walkthrough (emulating streaming media site experience) |
 |:----:|:----:|:----:|
-| ![Video walkthrough](anim_jetflix_v1.gif) | ![Video walkthrough](anim_jetflix_v2.gif) | ![Video walkthrough](anim_jetflix_v3.gif) |
+| ![Video walkthrough](anim_jetflix_v1.gif) | ![Video walkthrough](anim_jetflix_v2.gif) |
+| v3 walkthrough (add Series shows) |
+|:----:|
+| ![Video walkthrough](anim_jetflix_v3.gif) |
 
 
 GIFs created with [LiceCap](http://www.cockos.com/licecap/).
