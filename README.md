@@ -18,8 +18,8 @@ The following **additional** features are implemented:
 * [X] Trailer video plays in a dedicated space on the screen
 * [x] Look & feel of the site mimics modern media browsing patterns
 * [x] Additional details about the movie are displayed
-* [ ] TV shows can also be browsed in the catalog
-* [ ] TV show details are different than movie details (still image instead of trailer, number of seasons instead of duration)
+* [x] TV shows can also be browsed in the catalog
+* [x] TV show details are different than movie details (still image instead of trailer, number of seasons instead of duration)
 * [ ] User can choose between viewing a list of all videos, only movies, or only TV shows
 
 
@@ -27,9 +27,9 @@ The following **additional** features are implemented:
 
 Here are walkthroughs of implemented user stories:
 
-| v1 walkthrough (as instructed by course) | v2 walkthrough (emulating streaming media site experience) |
-|:----:|:----:|
-| ![Video walkthrough](anim_jetflix_v1.gif) | ![Video walkthrough](anim_jetflix_v2.gif) |
+| v1 walkthrough (as instructed by course) | v2 walkthrough (emulating streaming media site experience) | v3 walkthrough (add Series shows) }
+|:----:|:----:|:----:|
+| ![Video walkthrough](anim_jetflix_v1.gif) | ![Video walkthrough](anim_jetflix_v2.gif) | ![Video walkthrough](anim_jetflix_v3.gif) |
 
 
 GIFs created with [LiceCap](http://www.cockos.com/licecap/).

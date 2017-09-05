@@ -40,6 +40,12 @@ main_page_head = '''
             font-weight: 200;
             text-align: left;
         }
+        .vid-duration {
+            color: #FFF;
+            font-size: 50%;
+            font-weight: 200;
+            text-align: left;
+        }
         p.vid-storyline {
             color: #FFF;
             font-size: 100%;
@@ -105,19 +111,31 @@ main_page_head = '''
             background-color: #222;
             cursor: pointer;
         }
+        .series-tile {
+            margin-bottom: 20px;
+            padding-top: 20px;
+            padding-left: 20px;
+            padding-right: 30px;
+        }
+        .series-tile:hover {
+            background-color: #222;
+            cursor: pointer;
+        }
     </style>
     <script type="text/javascript" charset="utf-8">
         // Start playing the trailer whenever movie tile is clicked
         $(document).ready(function() {
             $(".movie-tile").click(function() {
-                console.log('clicked');
+                console.log('movie clicked');
                 var title = $(this).attr('title');
-                var titlecode = '<div class="container" id="detailsbox"><p class="vid-title">' + title + '</p>'
+                var duration = $(this).attr('duration');
+                var titlecode = '<div class="container" id="detailsbox"><p class="vid-title">' + title + '&nbsp;&nbsp;<span class="vid-duration">' + duration + '&nbsp;minutes</span></p>'
                 var storyline = $(this).attr('storyline');
                 var storycode = '<p class="vid-storyline">' + storyline + '</p></div>'
                 var trailerYouTubeId = $(this).attr('data-trailer-youtube-id');
                 var sourceUrl = 'http://www.youtube.com/embed/' + trailerYouTubeId + '?autoplay=1&html5=1';
                 console.log(storyline);
+                $("#jumbo").css('background-image', 'none');
                 $("#infobox").empty().append($(titlecode + storycode));
                 $("#trailerbox").empty().append($("<iframe></iframe>", {
                     'id': 'trailer-video',
@@ -126,13 +144,26 @@ main_page_head = '''
                     'frameborder': 0,
                     'allowfullscreen': 'allowfullscreen'
                 }));
+                $("#trailerbox").css('visibility', 'visible');
+            });
+            $(".series-tile").click(function() {
+                console.log('series clicked');
+                var title = $(this).attr('title');
+                var seasons = $(this).attr('seasons');
+                var titlecode = '<div class="container" id="detailsbox"><p class="vid-title">' + title + '&nbsp;&nbsp;<span class="vid-duration">' + seasons + '&nbsp;seasons</span></p>'
+                var storyline = $(this).attr('storyline');
+                var storycode = '<p class="vid-storyline">' + storyline + '</p></div>'
+                var landscape_url = $(this).attr('landscape-url');
+                $("#trailerbox").css('visibility', 'hidden');
+                $("#infobox").empty().append($(titlecode + storycode));
+                $("#jumbo").css('background-image', 'url(' + landscape_url + ')');
             });
             // Animate in the movies when the page loads
-            $(document).ready(function () {
-              $('.movie-tile').hide().first().show("fast", function showNext() {
-                $(this).next("div").show("fast", showNext);
-              });
-            });
+            // $(document).ready(function () {
+           //   $('.movie-tile').hide().first().show("fast", function showNext() {
+           //     $(this).next("div").show("fast", showNext);
+           //   });
+           // });
         });
     </script>
 </head>
@@ -155,7 +186,7 @@ main_page_content = '''
       </div>
     </div>
     -->
-    <div class="jumbotron">
+    <div class="jumbotron" id="jumbo">
       <div class="container" id="jumbocontainer">
         <h2>JETFLIX</h2>
         <div id="trailerbox">
@@ -166,7 +197,7 @@ main_page_content = '''
     </div>
     <div class="container-fluid">
     <div class="catalog-row">
-      {movie_tiles}
+      {all_tiles}
     </div>
     </div>
 
@@ -178,9 +209,17 @@ main_page_content = '''
 
 # A single movie entry html template
 movie_tile_content = '''
-<div class="movie-tile" data-trailer-youtube-id="{trailer_youtube_id}" title="{movie_title}" storyline="{movie_storyline}">
+<div class="movie-tile" data-trailer-youtube-id="{trailer_youtube_id}" title="{movie_title}" duration="{movie_duration}" storyline="{movie_storyline}">
     <img src="{poster_image_url}" width="220" height="342">
     <h3>{movie_title}</h3>
+</div>
+'''
+
+# A single series entry html template
+series_tile_content = '''
+<div class="series-tile" landscape-url="{landscape_url}" title="{series_title}" seasons="{series_seasons}" storyline="{series_storyline}">
+    <img src="{poster_image_url}" width="220" height="342">
+    <h3>{series_title}</h3>
 </div>
 '''
 
@@ -200,22 +239,48 @@ def create_movie_tiles_content(movies):
         # Append the tile for the movie with its content filled in
         content += movie_tile_content.format(
             movie_title=movie.title,
+            movie_duration=movie.duration,
             movie_storyline=movie.storyline,
             poster_image_url=movie.poster_image_url,
             trailer_youtube_id=trailer_youtube_id
         )
     return content
 
+def create_series_tiles_content(series):
+    # The HTML content for this section of the page
+    content = ''
+    for show in series:
 
-def open_movies_page(movies):
+        # Append the tile for the show with its content filled in
+        content += series_tile_content.format(
+            series_title=show.title,
+            series_seasons=show.season_count,
+            series_storyline=show.storyline,
+            poster_image_url=show.poster_image_url,
+            landscape_url=show.landscape_url
+        )
+    return content
+
+def create_all_tiles_content(videos):
+    content = ''
+    for video in videos:
+        if video.media_type == "Movie":
+            content += create_movie_tiles_content([video])
+        elif video.media_type == "Series":
+            content += create_series_tiles_content([video])
+    return content
+
+def open_movies_page(movies, shows):
     # Create or overwrite the output file
     output_file = open('fresh_tomatoes.html', 'w')
 
-    movieslist = sorted(movies, key = lambda movie: movie.title)
+    movies_list = sorted(movies, key = lambda movie: movie.title)
+    series_list = sorted(shows, key = lambda show: show.title)
+    all_list = sorted(movies + shows, key = lambda video: video.title)
 
     # Replace the movie tiles placeholder generated content
     rendered_content = main_page_content.format(
-        movie_tiles=create_movie_tiles_content(movieslist))
+        all_tiles=create_all_tiles_content(all_list))
 
     # Output the file
     output_file.write(main_page_head + rendered_content)
