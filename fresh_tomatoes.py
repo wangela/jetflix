@@ -123,7 +123,8 @@ main_page_head = '''
                     'id': 'trailer-video',
                     'type': 'text-html',
                     'src': sourceUrl,
-                    'frameborder': 0
+                    'frameborder': 0,
+                    'allowfullscreen': 'allowfullscreen'
                 }));
             });
             // Animate in the movies when the page loads
