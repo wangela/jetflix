@@ -158,12 +158,6 @@ main_page_head = '''
                 $("#infobox").empty().append($(titlecode + storycode));
                 $("#jumbo").css('background-image', 'url(' + landscape_url + ')');
             });
-            // Animate in the movies when the page loads
-            // $(document).ready(function () {
-           //   $('.movie-tile').hide().first().show("fast", function showNext() {
-           //     $(this).next("div").show("fast", showNext);
-           //   });
-           // });
         });
     </script>
 </head>
@@ -225,7 +219,18 @@ series_tile_content = '''
 
 
 def create_movie_tiles_content(movies):
-    # The HTML content for this section of the page
+    """ Generates movie tiles to be displayed.
+
+    Args:
+        movies: A list of media.Movie objects in any order.
+
+    Returns:
+        HTML code for a div that displays the movie poster and, when clicked, 
+        plays the movie's trailer in the #trailerbox inside the jumbotron 
+        at the top of the page.
+
+    """
+
     content = ''
     for movie in movies:
         # Extract the youtube ID from the url
@@ -247,7 +252,18 @@ def create_movie_tiles_content(movies):
     return content
 
 def create_series_tiles_content(series):
-    # The HTML content for this section of the page
+    """ Generates movie tiles to be displayed.
+
+    Args:
+        movies: A list of media.Series objects in any order.
+
+    Returns:
+        HTML code for a div that displays the show poster and, when clicked, 
+        fills the jumbotron at the top of the page with a high-res landscape 
+        image promoting the show.
+
+    """
+
     content = ''
     for show in series:
 
@@ -262,6 +278,17 @@ def create_series_tiles_content(series):
     return content
 
 def create_all_tiles_content(videos):
+    """ Generates tiles for any kind of video to be displayed.
+
+    Args:
+        videos: A list of media.Videos objects in any order.
+
+    Returns: 
+        HTML for Movie and Series divs (can be mixed together)
+        that either play a trailer video or fill the jumbotron 
+        with a still image.
+
+    """
     content = ''
     for video in videos:
         if video.media_type == "Movie":
@@ -271,6 +298,17 @@ def create_all_tiles_content(videos):
     return content
 
 def open_movies_page(movies, shows):
+    """ Generates tiles for any kind of video to be displayed.
+
+    Args:
+        movies: A list of media.Movies objects in any order.
+        shows: A list of media.Shows objects in any order.
+
+    Returns: 
+        Generates a new HTML webpage file and opens it in a web browser.
+
+    """
+
     # Create or overwrite the output file
     output_file = open('fresh_tomatoes.html', 'w')
 
